@@ -5,160 +5,183 @@ description: Use when editing, improving, or adding anything to the BrazLatch ma
 
 # BrazLatch Site — Master Edit Agent
 
-You are the expert on the BrazLatch Astro marketing website. You know every file, every design decision, every constraint. When the user asks for any change — big or small — you handle it end to end.
+You are the expert on the BrazLatch Astro marketing website. Every time this skill is invoked, you follow the intake workflow below before touching any file.
 
-## Project at a Glance
+---
 
-| | |
-|---|---|
-| **Path** | `C:\Users\alikb\OneDrive\Desktop\claude\BrazLatch\` |
-| **Stack** | Astro 4.16 · Tailwind 3.4 · TypeScript strict |
-| **Hosting** | Cloudflare Pages |
-| **Dev server** | `npm run dev` → http://localhost:4321 |
-| **Deploy** | `npm run deploy` (Wrangler) or push to GitHub → auto-deploy |
-| **GitHub** | https://github.com/alikbraz-commits/BrazLatch-site |
+## Step 1 — Intake (ALWAYS run this first)
 
-## Page → File Map
+Before doing anything, ask the user these questions using the AskUserQuestion tool:
 
-| URL | Page file | Notes |
-|-----|-----------|-------|
-| `/` | `src/pages/index.astro` | Home — stack hero, story, applications, patent |
-| `/how-it-works` | `src/pages/how-it-works.astro` | Side hero, 5-step mechanism, comparison table |
-| `/applications` | `src/pages/applications.astro` | 6 environment cards |
-| `/about` | `src/pages/about.astro` | Founder story |
-| `/partner` | `src/pages/partner.astro` | Licensing + contact |
-| `/buy` | `src/pages/buy.astro` | Retail links |
-| `/contact` | `src/pages/contact.astro` | Contact form |
+**Question 1 — What type of change?** (single select)
+- Text / wording — headline, paragraph, button label
+- Image or video — swap a photo or video file
+- Layout or design — move things, resize, add a section
+- New feature or page — something that doesn't exist yet
+- Bug fix — something broken or looking wrong
+- Deploy — push changes live
 
-## Key Components
+**Question 2 — Which page(s)?** (multi-select)
+- Home (`/`)
+- How it works (`/how-it-works`)
+- Applications (`/applications`)
+- About (`/about`)
+- Partner (`/partner`)
+- Buy (`/buy`)
+- Contact (`/contact`)
+- All pages / shared component
 
-| Component | What it does |
-|-----------|-------------|
+**Question 3 — How urgent / how big?** (single select)
+- Quick fix — one thing, do it now
+- Medium — a few related changes
+- Big improvement — rethink a whole section
+
+Then based on answers, follow the matching workflow below.
+
+---
+
+## Step 2 — Route to the Right Workflow
+
+### TEXT CHANGE → Use the CMS first
+1. Check if the field already exists in the sheet key list below
+2. If YES → tell the user to update the Google Sheet cell. Done. No code needed.
+3. If NO → add `get('new.key', 'fallback')` to the relevant `.astro` file, tell user to add the row to the sheet
+
+### IMAGE / VIDEO SWAP
+1. Ask: "Do you have the new file ready? What's the filename or URL?"
+2. If local file → confirm it's in `public/videos/` or `public/images/`
+3. If external URL → update the sheet key directly
+4. Edit the relevant `get(...)` call or hardcoded `src` attribute
+5. Adjust `object-position` / `filter` / `brightness` if needed
+6. Ask user to check in browser, iterate on position/brightness
+
+### LAYOUT / DESIGN CHANGE
+1. Read the current file before any edit
+2. Describe the plan in 2–3 sentences — what you'll change and why
+3. Make the change
+4. Tell user what URL to check and what to look for
+
+### NEW FEATURE / PAGE
+1. Ask: "What should this do? Who is it for?"
+2. Check if a similar component already exists to reuse
+3. Follow the existing aesthetic (dark sections, hairline borders, mono specs — no SaaS gradients)
+4. Scaffold the page/component, then ask for feedback before detailing
+
+### BUG FIX
+1. Read the broken file first
+2. Check if it's a known constraint (video autoplay in CDP, grain overlay screenshot freeze — see Known Issues below)
+3. Fix, verify with `curl http://localhost:4321/page` returns 200
+4. Report what was wrong and what was changed
+
+### DEPLOY
+1. Run `git status` to confirm what's uncommitted
+2. Show the user a summary of changes
+3. Run `git add -A && git commit -m "..."` with a sensible message
+4. Run `git push`
+5. Confirm push succeeded
+
+---
+
+## Project Reference
+
+### Page → File Map
+
+| URL | File |
+|-----|------|
+| `/` | `src/pages/index.astro` |
+| `/how-it-works` | `src/pages/how-it-works.astro` |
+| `/applications` | `src/pages/applications.astro` |
+| `/about` | `src/pages/about.astro` |
+| `/partner` | `src/pages/partner.astro` |
+| `/buy` | `src/pages/buy.astro` |
+| `/contact` | `src/pages/contact.astro` |
+
+### Key Components
+
+| Component | Role |
+|-----------|------|
 | `Hero.astro` | 4 variants: `stack` (home), `side` (how-it-works), `video`, `static` |
-| `MechanismFilmstrip.astro` | 3-cell filmstrip on home: ATTEMPT / RESET / REPEAT |
-| `MechanismSequence.astro` | Full 5-step sequence on /how-it-works with SVG schematics |
-| `ApplicationsRegistry.astro` | 6-row list on home, reads from CMS |
-| `ApplicationDetail.astro` | Renders each env card on /applications |
+| `MechanismFilmstrip.astro` | 3-cell filmstrip: ATTEMPT / RESET / REPEAT |
+| `MechanismSequence.astro` | 5-step mechanism sequence with SVG schematics |
+| `ApplicationsRegistry.astro` | 6-row list, CMS-driven |
 | `LicensingStrip.astro` | National Hardware licensing bar |
-| `PatentMap.astro` | 7-market patent world map |
-| `RetailerLogos.astro` | Amazon + Lowes + National Hardware logos |
-| `AudienceRouter.astro` | "Are you a…" CTA split |
-| `SchematicFrame.astro` | 4 green corner ticks — wraps technical diagrams |
-| `LineArtIcon.astro` | 6 SVG environment icons |
-| `PatentBadge.astro` | Patent number pill |
+| `PatentMap.astro` | 7-market world map |
+| `SchematicFrame.astro` | Green corner ticks for technical diagrams |
 
-## Brand Tokens (Tailwind)
+### Brand Tokens
 
-| Token | Value | Use |
-|-------|-------|-----|
-| `brand-black` | `#0E0D0B` | Page background |
-| `brand-green` | `#009444` | Primary CTA, accents, highlights |
-| `brand-green-deep` | darker green | Hover states, links |
-| `brand-bone` | `#EFEAE0` | Light text on dark bg |
-| `brand-ink` | `#0E0D0B` | Body text on light bg |
-| `brand-ink-deep` | `#16140F` | Card backgrounds |
-| `brand-bone-muted` | `#A8A296` | Subdued labels |
+| Token | Value |
+|-------|-------|
+| `brand-black` | `#0E0D0B` — page background |
+| `brand-green` | `#009444` — primary CTA, accents |
+| `brand-bone` | `#EFEAE0` — light text on dark |
+| `brand-ink-deep` | `#16140F` — card backgrounds |
+| `brand-bone-muted` | `#A8A296` — subdued labels |
 
-**Fonts:** IBM Plex Sans (display + body) · JetBrains Mono (specs, kickers) · Newsreader italic (editorial callouts)
+Fonts: IBM Plex Sans · JetBrains Mono (specs/kickers) · Newsreader italic (callouts)
 
-**Section helpers:** `section-dark` (brand-black bg) · `section-cream` (bone bg) · `container-page` (max-width + padding)
+### Hero Variant Rules — LOCKED
 
-## Hero Variant Rules — LOCKED
+| Page | Variant | Constraint |
+|------|---------|-----------|
+| `/` | `stack` | headline → video → subtitle. **Never split or overlay. Non-negotiable.** |
+| `/how-it-works` | `side` | text left, video right |
+| Other | `static` / `video` | as appropriate |
 
-| Page | Variant | Rule |
-|------|---------|------|
-| Home `/` | `stack` | Big headline → video band → subtitle/CTAs. **Never change to split or overlay.** |
-| How it works | `side` | Text left, video right. |
-| Other pages | `static` or `video` | As appropriate. |
+### Google Sheets CMS Keys
 
-**DO NOT propose or implement a split/two-column or overlay layout for the home hero. This was rejected multiple times. Work within `stack`.**
+Sheet: https://docs.google.com/spreadsheets/d/19zutxuv_Z7XDTaFDBYAZwFgJkMsVDBKglETNEVgsA60
 
-## Google Sheets CMS
+| Key | Controls |
+|-----|---------|
+| `home.hero.eyebrow` | Small label above headline |
+| `home.hero.title` | Main homepage headline |
+| `home.hero.subtitle` | Paragraph under buttons |
+| `home.hero.cta1.label` / `.href` | Green button |
+| `home.hero.cta2.label` / `.href` | Ghost button |
+| `home.hero.video` | Home hero video path |
+| `home.story.heading` | "It started with a horse." |
+| `home.story.body` | Story paragraph |
+| `home.story.image` | Story photo (URL or blank = local) |
+| `home.patent.year` | Launch year |
+| `howitworks.hero.title` | How-it-works headline |
+| `howitworks.hero.subtitle` | How-it-works subtitle |
+| `howitworks.hero.video` | How-it-works video |
+| `app.01–06.title` | 6 application row labels |
+| `app.01–06.desc` | 6 application row descriptions |
 
-**How it works:** `src/lib/siteContent.ts` fetches the published CSV at build time. Every page calls `getSiteContent()` and uses `makeGetter(c)` for fallback-safe lookups.
-
-**Sheet URL:** stored in `.env` as `CONTENT_SHEET_URL`
-
-**Sheet:** https://docs.google.com/spreadsheets/d/19zutxuv_Z7XDTaFDBYAZwFgJkMsVDBKglETNEVgsA60
-
-**Key format:** dot-notation e.g. `home.hero.title`, `app.01.desc`
-
-**To add a new editable field:**
-1. Add `get('new.key', 'fallback value')` in the relevant `.astro` file
-2. Add the row to the Google Sheet (key + value + notes)
-3. Rebuild
-
-**CMS-controlled keys:**
-
-| Key | Where it appears |
-|-----|-----------------|
-| `home.hero.*` | Homepage hero text, buttons, video |
-| `home.story.*` | "It started with a horse" section |
-| `home.patent.year` | Launch year in patent section |
-| `howitworks.hero.*` | How-it-works hero |
-| `app.01–06.title/desc` | 6 application rows on home |
-
-## Videos
+### Videos
 
 | File | Used on |
 |------|---------|
-| `public/videos/brazlatch-timeline.mp4` | Home hero (active) |
-| `public/videos/brazlatch-triple-action.mp4` | How-it-works hero (placeholder — replace) |
+| `public/videos/brazlatch-timeline.mp4` | Home hero ✅ active |
+| `public/videos/brazlatch-triple-action.mp4` | How-it-works (placeholder — replace) |
 
-**To swap a video:** Drop new file in `public/videos/`, update the key in `.env` sheet or directly in the page file.
+### Known Issues / Constraints
 
-**Video filter on home:** `brightness(0.92) contrast(1.05) saturate(0.95)` — adjust if source video changes.
+- **Video autoplay in CDP:** Never autoplays in Claude's headless Chrome. Works fine in real browser. Not a bug.
+- **Grain overlay screenshot freeze:** `body::after` SVG feTurbulence causes CDP timeouts. Inject `body::after{display:none}` before screenshotting.
+- **No video poster:** Hero shows black panel when autoplay blocked. Needs a `.jpg` still frame extracted from the video.
+- **`.env` is gitignored:** `CONTENT_SHEET_URL` must be set manually and in Cloudflare dashboard.
 
-## Common Edit Tasks
-
-### Change text on any page
-→ Either edit the Google Sheet (for CMS-controlled fields) or edit the `.astro` page file directly.
-
-### Swap the home hero video
-→ Copy file to `public/videos/`, update `home.hero.video` in the sheet → rebuild.
-
-### Add a new section to a page
-→ Edit the page `.astro` file. Use `section-dark` or `section-cream` class. Follow the existing pattern.
-
-### Change button labels / links
-→ Sheet keys `home.hero.cta1.label`, `home.hero.cta1.href` etc.
-
-### Adjust video brightness / darkness
-→ Edit `style="filter: brightness(...)"` in the relevant Hero variant in `Hero.astro`.
-
-### Add a new page
-→ Create `src/pages/newpage.astro`, add to `src/components/Nav.astro`.
-
-### Tune spacing / typography
-→ Edit Tailwind classes directly in the component. Use existing scale (`h1-display`, `h2-section`, `lede`, `kicker`, `spec-label`).
-
-## Deployment
+### Deploy Commands
 
 ```bash
-# Push to GitHub (triggers Cloudflare auto-deploy)
-git add -A
-git commit -m "describe the change"
-git push
+# Push to GitHub (Cloudflare auto-deploys)
+git add -A && git commit -m "message" && git push
 
-# Or deploy directly
+# Direct deploy
 npm run deploy
 ```
 
-**Cloudflare env var:** `CONTENT_SHEET_URL` must be set in Cloudflare Pages dashboard → Settings → Environment variables.
+---
 
-## Known Constraints
+## Quality Rules — Always Enforce
 
-- **CDP autoplay:** Videos never autoplay in headless Chrome (Claude's browser). They autoplay fine in real browsers. Not a bug.
-- **grain overlay:** `body::after` SVG feTurbulence — causes CDP screenshot freezes. Inject `body::after{display:none}` before screenshotting.
-- **Poster:** Hero video has no still poster frame yet. If autoplay is blocked, users see a black panel. Needs a `.jpg` frame extracted from the video.
-- **`.env` is gitignored** — never committed. Must be set manually on each machine and in Cloudflare dashboard.
-
-## How to Be a Great BrazLatch Editor
-
-- **Always read the file before editing** — never guess at current state
-- **Prefer sheet edits for text** — keeps code clean
-- **Prefer direct `.astro` edits for layout/structure**
-- **Test in the browser after every change** — `http://localhost:4321`
-- **Commit after each logical chunk of work**
-- **Keep the industrial/specimen aesthetic** — no rounded bubbles, no SaaS gradients, no pastel cards. Dark, precise, technical.
-- **The brand voice is confident and direct** — short sentences, no fluff, no marketing clichés
+- **Read before editing** — never guess the current state of a file
+- **Verify after editing** — `curl http://localhost:4321/page` → must return 200
+- **Commit after each logical chunk**
+- **Aesthetic:** industrial, precise, technical. No rounded bubbles, no pastel cards, no SaaS gradients.
+- **Voice:** short sentences, no fluff, no marketing clichés
+- **Sheet over code** — if the change is content, push it to the sheet first
+- **Ask before doing** for anything larger than a single-line edit
