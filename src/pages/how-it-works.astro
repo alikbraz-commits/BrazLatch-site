@@ -1,0 +1,83 @@
+---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import MechanismSequence from "../components/MechanismSequence.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+import PatentMap from "../components/PatentMap.astro";
+import { getSiteContent, makeGetter } from "../lib/siteContent";
+import heroPoster from "../assets/renders/hero-poster.jpg";
+
+const page = await getEntry("pages", "how-it-works");
+const c    = await getSiteContent();
+const get  = makeGetter(c);
+---
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <Hero
+    eyebrow={get('howitworks.hero.eyebrow', 'Mechanism')}
+    title={get('howitworks.hero.title', 'A latch that thinks one step ahead.')}
+    subtitle={get('howitworks.hero.subtitle', 'Sequential triple-action with auto-reset. Patent-protected mechanism in seven markets.')}
+    primaryCta={{ href: get('howitworks.hero.cta1.href', '/partner'),      label: get('howitworks.hero.cta1.label', 'Partner with us')  }}
+    secondaryCta={{ href: get('howitworks.hero.cta2.href', '/applications'), label: get('howitworks.hero.cta2.label', 'See applications') }}
+    withPatentBadge={true}
+    variant="side"
+    videoSrc={get('howitworks.hero.video', '/videos/brazlatch-triple-action.mp4')}
+  />
+
+  <section class="section section-dark">
+    <div class="container-page grid gap-12 lg:grid-cols-[2fr_3fr]">
+      <div>
+        <p class="kicker">The problem</p>
+        <h2 class="h2-section mt-3">Conventional latches were never designed for this.</h2>
+        <p class="lede mt-6 max-w-prose">
+          Standard latches were never designed to outwit a curious horse, a nudging cow, or the
+          vibration of a trailer at 70 mph. Animals open them. Vibrations loosen them. Accidents happen.
+        </p>
+        <p class="lede mt-4 max-w-prose">
+          The "animal-proof" latches that do exist tend to require two hands and a fight every time
+          you want through a gate. They frustrate humans long before they stop the animals.
+        </p>
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-white/10">
+        <Image src={heroPoster} alt="BrazLatch triple-action mechanism close-up" width={1280} height={720} />
+        <p class="text-xs text-brand-white/40 px-4 py-3 border-t border-white/10">
+          [CONFIRM: replace with hi-res 3D render]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <MechanismSequence />
+
+  <section class="section section-cream">
+    <div class="container-page">
+      <header class="max-w-2xl">
+        <p class="kicker">Why it's different</p>
+        <h2 class="h2-section mt-3 text-brand-ink">Side-by-side with the alternatives.</h2>
+      </header>
+      <div class="mt-12">
+        <ComparisonTable />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container-page grid gap-10 lg:grid-cols-[3fr_2fr]">
+      <div>
+        <p class="kicker">Patent details</p>
+        <h2 class="h2-section mt-3">US Patent 10,934,749 B2</h2>
+        <p class="lede mt-4">
+          <em>Sliding Bolt Latch and Use Thereof</em>. Inventor: Alik Alexander Braz.
+        </p>
+        <ul class="mt-8 space-y-2 text-sm text-brand-white/80">
+          <li>· Issued and protected in the United States, Canada, the European Union, the United Kingdom, Australia, Israel, and India</li>
+          <li>· Mechanism claim covers trapped-pin sequential release and auto-reset</li>
+          <li>· International counterparts active in all seven markets</li>
+        </ul>
+        <p class="mt-8 text-xs text-brand-white/40 font-mono">[CONFIRM: provide patent PDF for download link]</p>
+      </div>
+      <PatentMap />
+    </div>
+  </section>
+</BaseLayout>

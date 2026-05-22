@@ -1,0 +1,42 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ContactForm from "../components/ContactForm.astro";
+---
+<BaseLayout
+  title="Contact — BrazLatch"
+  description="Get in touch with BrazLatch. Licensing, distribution, or buying — pick the path that fits and we'll route your message to the right inbox."
+>
+  <Hero
+    eyebrow="Contact"
+    title="Let's talk."
+    subtitle="Pick the path that fits. Your message goes straight to the right inbox."
+    variant="static"
+  />
+
+  <section class="section section-dark">
+    <div class="container-page grid gap-10 lg:grid-cols-[2fr_3fr] items-start">
+      <div class="space-y-6">
+        <div>
+          <p class="kicker">License BrazLatch</p>
+          <h2 class="mt-2 text-2xl font-bold">Acquire rights in your market.</h2>
+          <p class="mt-2 text-brand-white/70 text-sm">For manufacturers and brands ready to acquire exclusive rights in a country.</p>
+        </div>
+        <div>
+          <p class="kicker">Distribute BrazLatch</p>
+          <h2 class="mt-2 text-2xl font-bold">Sell BrazLatch in your region.</h2>
+          <p class="mt-2 text-brand-white/70 text-sm">For distributors, retailers, and agricultural cooperatives ready to sell in a region.</p>
+        </div>
+        <div>
+          <p class="kicker">Buy a BrazLatch</p>
+          <h2 class="mt-2 text-2xl font-bold">Find it in the US, or be the one to bring it to your country.</h2>
+          <p class="mt-2 text-brand-white/70 text-sm">
+            US shoppers &mdash; <a href="/buy" class="text-brand-green hover:underline">see retailers</a>.
+            Outside the US &mdash; leave your details and we'll notify you when a distributor is appointed.
+          </p>
+        </div>
+      </div>
+      <ContactForm defaultIntent="license" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,121 @@
+﻿---
+interface Props {
+  defaultIntent?: "license" | "distribute" | "buy";
+  hideIntent?: boolean;
+}
+const { defaultIntent = "license", hideIntent = false } = Astro.props;
+
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID ?? "";
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "";
+const action = formspreeId
+  ? `https://formspree.io/f/${formspreeId}`
+  : "/__placeholder__"; // [CONFIRM] set PUBLIC_FORMSPREE_ID in .env
+---
+<form
+  method="POST"
+  action={action}
+  class="grid gap-5 rounded-2xl border border-white/10 bg-brand-black/60 p-6 sm:p-8"
+>
+  <!-- Honeypot -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+  {!hideIntent && (
+    <label class="grid gap-2">
+      <span class="text-xs font-semibold uppercase tracking-widest text-brand-green">I want to&hellip;</span>
+      <select
+        name="intent"
+        required
+        class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+      >
+        <option value="license" selected={defaultIntent === "license"}>License BrazLatch in my market</option>
+        <option value="distribute" selected={defaultIntent === "distribute"}>Distribute BrazLatch in my region</option>
+        <option value="buy" selected={defaultIntent === "buy"}>Find BrazLatch as a buyer</option>
+      </select>
+    </label>
+  )}
+  {hideIntent && <input type="hidden" name="intent" value={defaultIntent} />}
+
+  <div class="grid sm:grid-cols-2 gap-5">
+    <label class="grid gap-2">
+      <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Full name *</span>
+      <input
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+      />
+    </label>
+    <label class="grid gap-2">
+      <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Company</span>
+      <input
+        type="text"
+        name="company"
+        autocomplete="organization"
+        class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+      />
+    </label>
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-5">
+    <label class="grid gap-2">
+      <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Email *</span>
+      <input
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+      />
+    </label>
+    <label class="grid gap-2">
+      <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Country *</span>
+      <input
+        type="text"
+        name="country"
+        required
+        autocomplete="country-name"
+        class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+      />
+    </label>
+  </div>
+
+  <label class="grid gap-2">
+    <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Industry / channels</span>
+    <input
+      type="text"
+      name="industry"
+      placeholder="e.g. equestrian retail, agricultural co-op, DIY chain, Amazon FBA"
+      class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+    />
+  </label>
+
+  <label class="grid gap-2">
+    <span class="text-xs font-semibold uppercase tracking-widest text-brand-white/70">Tell us about your market</span>
+    <textarea
+      name="message"
+      rows="5"
+      placeholder="Years in market, distribution network, volume expectations, target launch quarter..."
+      class="rounded-md bg-white/5 border border-white/15 px-4 py-3 text-sm text-brand-white focus:outline-none focus:border-brand-green"
+    ></textarea>
+  </label>
+
+  {turnstileSiteKey && (
+    <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="dark"></div>
+  )}
+
+  <div class="flex flex-wrap items-center gap-4">
+    <button type="submit" class="btn btn-primary">Send enquiry</button>
+    <p class="text-xs text-brand-white/50">Alik replies personally within five working days. Your details are never shared.</p>
+  </div>
+
+  {!formspreeId && (
+    <p class="text-xs text-amber-300/80 font-mono">
+      [CONFIRM] Add PUBLIC_FORMSPREE_ID to .env to enable submissions.
+    </p>
+  )}
+</form>
+
+{turnstileSiteKey && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}

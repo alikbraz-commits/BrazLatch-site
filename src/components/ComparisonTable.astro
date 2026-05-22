@@ -1,0 +1,53 @@
+﻿---
+const rows = [
+  { feature: "Animal-resistant", standard: false, animalProof: true, brazlatch: true },
+  { feature: "One-handed operation", standard: true, animalProof: false, brazlatch: true },
+  { feature: "Vibration-resistant", standard: false, animalProof: "Varies", brazlatch: true },
+  { feature: "Self-resetting", standard: false, animalProof: false, brazlatch: true },
+  {
+    feature: "Patent-protected mechanism",
+    standard: "—",
+    animalProof: "Varies",
+    brazlatch: "Yes · US10934749B2",
+  },
+];
+
+function cell(v: boolean | string) {
+  if (v === true) return { text: "Yes", tone: "good" } as const;
+  if (v === false) return { text: "No", tone: "bad" } as const;
+  return { text: v, tone: "neutral" } as const;
+}
+---
+<div class="overflow-hidden rounded-2xl border border-brand-ink/10 bg-white">
+  <table class="w-full text-left">
+    <thead>
+      <tr class="bg-brand-cream text-brand-ink">
+        <th class="px-5 py-4 text-xs uppercase tracking-widest font-semibold">Feature</th>
+        <th class="px-5 py-4 text-xs uppercase tracking-widest font-semibold">Standard latch</th>
+        <th class="px-5 py-4 text-xs uppercase tracking-widest font-semibold">"Animal-proof"</th>
+        <th class="px-5 py-4 text-xs uppercase tracking-widest font-semibold text-brand-green-deep">BrazLatch</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-brand-ink/10">
+      {rows.map((row) => {
+        const standard = cell(row.standard as boolean | string);
+        const ap = cell(row.animalProof as boolean | string);
+        const bl = cell(row.brazlatch as boolean | string);
+        const toneClass = (t: "good" | "bad" | "neutral") =>
+          t === "good"
+            ? "text-brand-green-deep font-semibold"
+            : t === "bad"
+            ? "text-brand-ink/40"
+            : "text-brand-ink/70";
+        return (
+          <tr class="text-brand-ink">
+            <td class="px-5 py-4 font-medium">{row.feature}</td>
+            <td class={`px-5 py-4 text-sm ${toneClass(standard.tone)}`}>{standard.text}</td>
+            <td class={`px-5 py-4 text-sm ${toneClass(ap.tone)}`}>{ap.text}</td>
+            <td class={`px-5 py-4 text-sm ${toneClass(bl.tone)}`}>{bl.text}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

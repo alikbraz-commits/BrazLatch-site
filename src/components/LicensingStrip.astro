@@ -1,0 +1,107 @@
+---
+/**
+ * LicensingStrip — the commercial heart of the site, promoted above the fold.
+ * Three cells: anchor title + Licensing card + Compensatory Manufacturing card.
+ *
+ * Visual: dark surface plate sitting on top of the section background,
+ * hairline dividers between cells, heavier-stroke line-art SVG icons
+ * (industrial signage feel, not fintech wisps).
+ */
+---
+<section class="section-quiet">
+  <div class="container-page">
+    <div class="rounded-lg border border-brand-bone/10 bg-brand-ink-deep overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-brand-bone/10">
+
+        {/* CELL 1 — Anchor title */}
+        <div class="p-8 md:p-10 lg:p-12 flex flex-col">
+          <p class="kicker mb-4">We are open to</p>
+          <h2 class="text-2xl sm:text-3xl font-semibold leading-[1.1] tracking-[-0.012em]">
+            Licensing &amp;<br/>Manufacturing
+          </h2>
+          <p class="mt-5 text-sm text-brand-bone-muted leading-relaxed max-w-prose-narrow">
+            Including territories without active patent protection. We also offer
+            compensatory manufacturing opportunities through National Hardware.
+          </p>
+        </div>
+
+        {/* CELL 2 — Licensing */}
+        <div class="p-8 md:p-10 lg:p-12 flex flex-col">
+          {/* Clipboard / contract icon — heavier 2px stroke, engineered signage */}
+          <svg
+            class="w-14 h-14 text-brand-green"
+            viewBox="0 0 64 64"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="32" cy="32" r="29" />
+            <rect x="20" y="18" width="24" height="30" rx="1.5" />
+            <rect x="26" y="14" width="12" height="6" rx="1" />
+            <line x1="25" y1="28" x2="39" y2="28" />
+            <line x1="25" y1="34" x2="39" y2="34" />
+            <line x1="25" y1="40" x2="35" y2="40" />
+          </svg>
+
+          <h3 class="mt-6 text-base font-semibold uppercase tracking-[0.14em] text-brand-bone">
+            Licensing
+          </h3>
+          <p class="mt-2 text-sm text-brand-bone-muted leading-relaxed">
+            Patent-protected territories and expanding markets.
+          </p>
+          <a
+            href="/partner#license"
+            class="mt-auto pt-6 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green hover:text-brand-bone transition-colors"
+          >
+            Learn more <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        {/* CELL 3 — Compensatory Manufacturing */}
+        <div class="p-8 md:p-10 lg:p-12 flex flex-col">
+          {/* Factory icon — stepped silhouette + chimney, 2px stroke */}
+          <svg
+            class="w-14 h-14 text-brand-green"
+            viewBox="0 0 64 64"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="32" cy="32" r="29" />
+            {/* ground line */}
+            <line x1="14" y1="47" x2="50" y2="47" />
+            {/* chimney */}
+            <path d="M19 22 L19 32 L23 32 L23 22 Z" />
+            {/* main factory block with stepped saw-tooth roof */}
+            <path d="M27 47 L27 30 L33 26 L33 32 L39 28 L39 32 L45 28 L45 47 Z" />
+            {/* small door */}
+            <rect x="30" y="40" width="4" height="7" />
+            {/* window squares */}
+            <rect x="37" y="36" width="3" height="3" />
+            <rect x="42" y="36" width="3" height="3" />
+          </svg>
+
+          <h3 class="mt-6 text-base font-semibold uppercase tracking-[0.14em] text-brand-bone">
+            Compensatory Manufacturing
+          </h3>
+          <p class="mt-2 text-sm text-brand-bone-muted leading-relaxed">
+            Access production capacity through National Hardware.
+          </p>
+          <a
+            href="/partner#manufacturing"
+            class="mt-auto pt-6 inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green hover:text-brand-bone transition-colors"
+          >
+            Learn more <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

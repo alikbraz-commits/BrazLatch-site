@@ -1,0 +1,40 @@
+﻿---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-brand-black border-t border-white/10 mt-24">
+  <div class="container-page py-16 grid gap-12 md:grid-cols-4">
+    <div class="md:col-span-2">
+      <img src="/logo-mark-light.svg" alt="braz innovation" width="150" height="80" />
+      <p class="mt-4 text-brand-white/70 max-w-sm">
+        The only latch you will ever need. Patent-protected mechanism, manufactured at scale, sold in the US through National Hardware, Amazon, and Lowe's.
+      </p>
+      <p class="mt-4 text-xs text-brand-white/40 font-mono">US Patent 10,934,749 B2</p>
+    </div>
+
+    <div>
+      <h4 class="text-xs font-semibold uppercase tracking-widest text-brand-green">Product</h4>
+      <ul class="mt-4 space-y-2 text-sm text-brand-white/80">
+        <li><a href="/how-it-works" class="hover:text-brand-green">How it works</a></li>
+        <li><a href="/applications" class="hover:text-brand-green">Applications</a></li>
+        <li><a href="/buy" class="hover:text-brand-green">Where to buy</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-xs font-semibold uppercase tracking-widest text-brand-green">Business</h4>
+      <ul class="mt-4 space-y-2 text-sm text-brand-white/80">
+        <li><a href="/partner" class="hover:text-brand-green">Partner with us</a></li>
+        <li><a href="/about" class="hover:text-brand-green">About Alik</a></li>
+        <li><a href="/contact" class="hover:text-brand-green">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/5">
+    <div class="container-page py-6 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-brand-white/50">
+      <p>&copy; {year} Braz Innovation Ltd · BrazLatch&reg; · Patented in 7 markets.</p>
+      <p>Mikhmoret, Israel · <a href="mailto:alik@brazlatch.com" class="hover:text-brand-green">alik@brazlatch.com</a></p>
+    </div>
+  </div>
+</footer>

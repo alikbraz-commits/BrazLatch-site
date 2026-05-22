@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ApplicationDetail from "../components/ApplicationDetail.astro";
+
+type IconName =
+  | "stalls"
+  | "fences"
+  | "trailers"
+  | "backyards"
+  | "warehouse"
+  | "farms";
+
+interface EnvRecord {
+  iconName: IconName;
+  code: string;
+  label: string;
+  headline: string;
+  paragraphs: string[];
+  specs: Array<[string, string]>;
+  callout: string;
+}
+
+const environments: EnvRecord[] = [
+  {
+    iconName: "stalls",
+    code: "01",
+    label: "Equestrian",
+    headline: "Your horse won't outsmart this one.",
+    paragraphs: [
+      "The original use case. Stable doors, paddock gates, tack rooms. Anywhere a curious or determined horse has historically taught its handlers a hard lesson about latch design.",
+      "Sequence-only release means no nose, no tooth, no leaning shoulder will open it. The rider opens it one-handed with the reins in the other.",
+    ],
+    specs: [
+      ["Failure mode", "nuzzle · paw · lift-and-slide"],
+      ["Force profile", "5–40 N cyclic, multi-hour"],
+      ["Reset time", "<120 ms after intent loss"],
+    ],
+    callout:
+      "A horse will try every motion it has. The mechanism declines every one of them except the right sequence.",
+  },
+  {
+    iconName: "fences",
+    code: "02",
+    label: "Livestock",
+    headline: "Zero escapes. Zero compromises.",
+    paragraphs: [
+      "Cattle, sheep, pigs, goats. All animals with the time and motivation to test every closure on the property.",
+      "Heavy-duty steel construction for daily agricultural use. The triple-action mechanism is the difference between an escape at 3 AM and a quiet night.",
+    ],
+    specs: [
+      ["Failure mode", "shoulder lean · head-press · lever"],
+      ["Force profile", "40–800 N sustained"],
+      ["Duty cycle", "24/7, weather-exposed"],
+    ],
+    callout:
+      "Livestock have time on their side. The mechanism doesn't care how long they try.",
+  },
+  {
+    iconName: "trailers",
+    code: "03",
+    label: "Trailers",
+    headline: "Stays locked at 70 mph.",
+    paragraphs: [
+      "Road vibration won't shake it loose. Storage compartments, livestock ramps, tack and feed gates. Anywhere a closure has to survive hours of motion.",
+      "Spring-action self-locking returns the latch to locked between every stop, automatically. No driver attention required between loading and arrival.",
+    ],
+    specs: [
+      ["Failure mode", "vibration · harmonics · partial release"],
+      ["Vibration tested", "0–250 Hz, road profile"],
+      ["Auto-reset", "every release event"],
+    ],
+    callout: "The latch you don't have to think about between waypoints.",
+  },
+  {
+    iconName: "backyards",
+    code: "04",
+    label: "Backyards",
+    headline: "Pet-proof. Kid-friendly.",
+    paragraphs: [
+      "Residential gates, pool enclosures, garden access, kennel runs. Premium home hardware for the homeowner who wants the dog to stay in, the toddler to stay out, and the gate to look right doing it.",
+      "The sequence is intuitive for the adult hand and a foreign language to small paws.",
+    ],
+    specs: [
+      ["Failure mode", "small paw · toddler hand · garden hose"],
+      ["Force profile", "0–10 N intermittent"],
+      ["Weather", "UV · pool chemistry · freeze-thaw"],
+    ],
+    callout: "Adults open it without thinking. Nobody else opens it at all.",
+  },
+  {
+    iconName: "warehouse",
+    code: "05",
+    label: "Logistic",
+    headline: "Built for industrial reliability.",
+    paragraphs: [
+      "Warehouse gates, container security, equipment enclosures, external storage cages. Heavy-duty closure where vibration, weather, and tamper-resistance all matter on the same SKU.",
+      "One latch across a whole facility. One part number to stock, one mechanism to train staff on.",
+    ],
+    specs: [
+      ["Failure mode", "tamper · vibration · weather"],
+      ["Security", "sequence-only release"],
+      ["Standardisation", "one SKU per facility"],
+    ],
+    callout:
+      "Procurement standardises on one part. Operations trains on one motion.",
+  },
+  {
+    iconName: "farms",
+    code: "06",
+    label: "Farms",
+    headline: "From greenhouse to grain shed.",
+    paragraphs: [
+      "Greenhouses, grain sheds, equipment storage, livestock housing. One latch standardised across every gate, every door, every outbuilding on the property.",
+      "One spare part on the shelf. One mechanism every worker already knows how to operate.",
+    ],
+    specs: [
+      ["Failure mode", "all of the above, daily"],
+      ["Standardisation", "one mechanism, property-wide"],
+      ["Spare parts", "single SKU on the shelf"],
+    ],
+    callout:
+      "Every gate, every shed, every door. One mechanism the whole team trusts.",
+  },
+];
+---
+<BaseLayout
+  title="Applications — One Mechanism, Many Problems Solved"
+  description="BrazLatch in equestrian stables, livestock gates, trailers, backyards, logistic and warehouse environments, and across the farm."
+>
+  <Hero
+    eyebrow="Applications"
+    title="One patent. <span class='text-brand-green'>Many uses</span>."
+    subtitle="The same self-resetting bolt, deployed across six environments where unintended opening is unacceptable. The bolt is identical. The mounting, the finish, and the gate context change."
+    variant="static"
+  />
+
+  <section class="section section-cream">
+    <div class="container-page space-y-24 lg:space-y-32">
+      {environments.map((env, idx) => (
+        <ApplicationDetail
+          iconName={env.iconName}
+          code={env.code}
+          label={env.label}
+          headline={env.headline}
+          paragraphs={env.paragraphs}
+          specs={env.specs}
+          callout={env.callout}
+          flip={idx % 2 === 1}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container-page text-center max-w-2xl mx-auto">
+      <h2 class="h2-section">Have a different application in mind?</h2>
+      <p class="lede mt-6">
+        Tell us about the environment. If the mechanism fits, we'll figure out the rest.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4 justify-center">
+        <a href="/contact" class="btn btn-primary">Talk to us</a>
+        <a href="/partner" class="btn btn-ghost">
+          Partner with us <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

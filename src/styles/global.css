@@ -1,0 +1,325 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+@layer base {
+  :root {
+    color-scheme: dark light;
+
+    /* Easing tokens — also exposed via Tailwind transitionTimingFunction.
+       Mechanical, never bouncy: the latch is a precision part, not a toy. */
+    --ease-mechanical: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-precise:    cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-settle:     cubic-bezier(0.16, 0.84, 0.44, 1);
+
+    --d-micro:    160ms;
+    --d-standard: 240ms;
+    --d-reveal:   480ms;
+  }
+
+  html {
+    font-family: theme("fontFamily.sans");
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-brand-black text-brand-white;
+    /* IBM Plex Sans stylistic alternates: ss01 = simpler g, ss02 = simpler a.
+       Tabular numerals + slashed zero for technical-feeling numerics. */
+    font-feature-settings: "ss01", "ss02";
+    font-variant-numeric: tabular-nums slashed-zero;
+    position: relative;
+  }
+
+  /* Universal grain overlay — applied site-wide via body::after.
+     SVG fractal noise, 3% opacity, overlay blend. Subtle, never busy. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    background-repeat: repeat;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  ::selection {
+    @apply bg-brand-green text-brand-black;
+  }
+
+  a {
+    @apply transition-colors;
+    transition-duration: var(--d-micro);
+    transition-timing-function: var(--ease-mechanical);
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+
+  /* Visible focus ring for keyboard navigation (accessibility) */
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.green");
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Mono usages always get tabular numerals */
+  .font-mono {
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: theme("colors.brand.ink-soft");
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme("colors.brand.bone-faint");
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================
+   COMPONENT LAYER
+   ============================================================ */
+@layer components {
+
+  /* --- LAYOUT --------------------------------------------------- */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+  }
+
+  /* --- KICKERS — Plex Sans uppercase labels (UI voice).
+         For technical specs / dimensions / patent metadata use .spec-label (mono) instead. --- */
+  .kicker {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green;
+  }
+  .kicker-amber {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-amber;
+  }
+  .kicker-engineering {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green-deep;
+  }
+
+  /* --- DISPLAY TYPE -------------------------------------------- */
+  .h1-display {
+    @apply text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] tracking-[-0.02em];
+  }
+  .h2-section {
+    @apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.08] tracking-[-0.018em];
+  }
+  .h3-spec {
+    @apply text-xl sm:text-2xl font-semibold leading-tight tracking-tight;
+  }
+  .lede {
+    @apply text-lg sm:text-xl text-brand-white/85 leading-relaxed font-normal;
+  }
+
+  /* Editorial serif — restricted to story moments (About, story pull-quotes) */
+  .editorial {
+    @apply font-serif italic text-brand-white/90;
+    font-weight: 400;
+  }
+
+  /* --- SPEC TYPE (mono technical voice) ------------------------ */
+  .spec-label {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-bone-muted;
+  }
+  .spec-value {
+    @apply font-sans text-sm font-medium text-brand-bone;
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+  .spec-mono-value {
+    @apply font-mono text-sm font-medium text-brand-bone;
+  }
+
+  /* Spec strip — horizontal band between sections */
+  .spec-strip {
+    @apply flex flex-wrap items-center gap-x-6 gap-y-2 py-4 border-y border-brand-bone/10;
+  }
+  .spec-strip-item {
+    @apply flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-brand-bone-muted;
+  }
+  .spec-strip-sep {
+    @apply text-brand-bone-faint;
+  }
+
+  /* Spec row — block label/value grid for inside cards */
+  .spec-row {
+    @apply grid grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10;
+  }
+  .spec-row:last-child {
+    @apply border-b-0;
+  }
+
+  /* --- BUTTONS — mechanical, not bouncy ------------------------ */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-sm font-semibold uppercase tracking-[0.14em];
+    transition: background-color var(--d-standard) var(--ease-mechanical),
+                border-color    var(--d-standard) var(--ease-mechanical),
+                color           var(--d-standard) var(--ease-mechanical),
+                box-shadow      var(--d-standard) var(--ease-mechanical),
+                transform       var(--d-micro)    var(--ease-precise);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    @apply bg-brand-green text-brand-black;
+  }
+  .btn-primary:hover {
+    @apply bg-brand-green-deep text-brand-white;
+  }
+  .btn-ghost {
+    @apply border border-brand-white/30 text-brand-white;
+  }
+  .btn-ghost:hover {
+    @apply bg-brand-white/10 border-brand-white/50;
+  }
+  /* Tertiary CTA — mono uppercase, no fill, no border, just text + arrow */
+  .btn-spec {
+    @apply inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green;
+    transition: color var(--d-standard) var(--ease-mechanical),
+                transform var(--d-micro) var(--ease-precise);
+  }
+  .btn-spec:hover  { @apply text-brand-white; }
+  .btn-spec:active { transform: translateY(1px); }
+
+  /* --- SECTIONS — variable vertical rhythm --------------------- */
+  .section {
+    @apply py-20 sm:py-24 lg:py-32;
+  }
+  .section-hero {
+    @apply pt-24 sm:pt-32 pb-20 sm:pb-28;
+  }
+  .section-feature {
+    @apply py-24 sm:py-32 lg:py-40;
+  }
+  .section-quiet {
+    @apply py-16 sm:py-20;
+  }
+  .section-spec {
+    @apply py-6 sm:py-8;
+  }
+
+  /* Surface bindings (legacy names kept for component compatibility) */
+  .section-dark {
+    @apply bg-brand-black text-brand-white;
+  }
+  .section-cream {
+    @apply bg-brand-cream text-brand-ink;
+  }
+  /* New semantic surface name — alias of section-cream for Phase 2 use */
+  .section-paper {
+    @apply bg-brand-paper text-brand-paper-deep;
+  }
+
+  /* Kicker color shift on light surfaces — moss green-deep for engineering register */
+  .section-cream .kicker,
+  .section-paper .kicker {
+    @apply text-brand-green-deep;
+  }
+  .section-cream .lede {
+    @apply text-brand-ink/70;
+  }
+  .section-paper .lede {
+    @apply text-brand-paper-deep/70;
+  }
+
+  /* --- CARD VARIANTS (available for Phase 2 components) -------- */
+  .card-technical {
+    @apply rounded-lg border border-brand-bone/10 bg-brand-ink-deep p-6;
+    transition: border-color var(--d-standard) var(--ease-mechanical),
+                box-shadow   var(--d-standard) var(--ease-mechanical),
+                transform    var(--d-micro)    var(--ease-precise);
+  }
+  .card-technical:hover {
+    @apply border-brand-green/30;
+    transform: translateY(1px);
+  }
+
+  .card-spec {
+    @apply border-y border-brand-bone/15 bg-transparent py-6;
+    border-radius: 0;
+  }
+
+  .card-status {
+    @apply rounded-spec border bg-transparent p-4;
+  }
+
+  .card-spotlight {
+    @apply rounded-xl border border-brand-amber/30 bg-brand-ink-deep p-10 sm:p-12 shadow-card-warm;
+  }
+
+  /* --- MECHANICAL LINK UNDERLINE -------------------------------- */
+  .link-mechanical {
+    @apply text-brand-green;
+    background-image: linear-gradient(to right, theme("colors.brand.green"), theme("colors.brand.green"));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--d-standard) var(--ease-mechanical),
+                color           var(--d-standard) var(--ease-mechanical);
+  }
+  .link-mechanical:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* ============================================================
+   UTILITY LAYER — DECORATIONS
+   ============================================================ */
+@layer utilities {
+
+  /* Engineering grid background — opt-in on hero sections only.
+     Hairline grid at 48px, ~2.5% opacity, never dominant. */
+  .has-engineering-grid {
+    background-image:
+      linear-gradient(rgba(239, 234, 224, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(239, 234, 224, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center center;
+  }
+
+  /* Engineering grid variant for cream surfaces (darker ink lines) */
+  .has-engineering-grid-paper {
+    background-image:
+      linear-gradient(rgba(26, 23, 20, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 23, 20, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: center center;
+  }
+
+  /* Reveal-on-scroll — paired with IntersectionObserver in BaseLayout */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity   var(--d-reveal) var(--ease-settle),
+                transform var(--d-reveal) var(--ease-settle);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

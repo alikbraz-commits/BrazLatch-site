@@ -1,0 +1,258 @@
+---
+import PatentBadge from "./PatentBadge.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  withPatentBadge?: boolean;
+  videoSrc?: string;
+  posterSrc?: string;
+  /** Layout variants:
+   *  - "video": full-bleed video background with text overlay (legacy)
+   *  - "static": text-only hero, no media
+   *  - "stack": big headline on top, video band in middle, small subtitle/CTAs underneath
+   *  - "side": text left column, video right column (interior page hero) */
+  variant?: "video" | "static" | "stack" | "side";
+  /** When true, hero content animates in on load with bolt-sliding motion.
+   *  Top group (kicker + headline) settles top-left; bottom group (subtitle, patent badge, CTAs) settles bottom-left. */
+  animate?: boolean;
+}
+const {
+  eyebrow,
+  title,
+  subtitle,
+  primaryCta,
+  secondaryCta,
+  withPatentBadge = false,
+  videoSrc,
+  posterSrc,
+  variant = "video",
+  animate = false,
+} = Astro.props;
+---
+
+<section class:list={["hero relative isolate overflow-hidden bg-brand-black text-brand-white", animate && "hero--animate"]}>
+  {variant === "video" && videoSrc && (
+    <div class="absolute top-0 inset-x-0 h-[44%] -z-10 overflow-hidden">
+      <video
+        class="w-full h-full object-cover opacity-80"
+        style="object-position: 50% 30%"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster={posterSrc}
+        aria-hidden="true"
+      >
+        <source src={videoSrc} type="video/mp4" />
+      </video>
+      {/* Top-band darken for headline contrast + bottom-edge fade into hero's brand-black ground */}
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-black/40 via-transparent to-brand-black"></div>
+    </div>
+  )}
+
+  {variant === "stack" ? (
+    <div class="container-page pt-6 sm:pt-8 lg:pt-10 pb-14 sm:pb-20 lg:pb-24">
+      {/* Big text on top */}
+      <div class="hero-group hero-group--top max-w-5xl">
+        {eyebrow && <p class="kicker mb-6">{eyebrow}</p>}
+        <h1 class="h1-display">
+          <Fragment set:html={title} />
+        </h1>
+      </div>
+
+      {/* Video band in the middle — narrowed container, constrained height, dark wash so
+          the video's light source background blends into the hero's brand-black ground.
+          object-position keeps the top of the latch in frame. */}
+      {videoSrc && (
+        <div class="hero-group hero-group--bottom mt-10 sm:mt-14 relative bg-brand-black overflow-hidden h-[32vh] sm:h-[36vh] lg:h-[40vh] max-w-5xl mx-auto">
+          <video
+            class="absolute inset-0 w-full h-full object-cover"
+            style="object-position: 50% 50%; filter: brightness(0.92) contrast(1.05) saturate(0.95);"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster={posterSrc}
+            aria-hidden="true"
+          >
+            <source src={videoSrc} type="video/mp4" />
+            <source src={videoSrc.replace(/\.mp4$/, '.mov')} type="video/quicktime" />
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-b from-brand-black/25 via-transparent to-brand-black pointer-events-none"></div>
+        </div>
+      )}
+
+      {/* Small text underneath */}
+      <div class="hero-group hero-group--bottom mt-4 sm:mt-6 max-w-2xl">
+        {subtitle && <p class="text-sm sm:text-base text-brand-bone/80 leading-relaxed">{subtitle}</p>}
+        {withPatentBadge && (
+          <div class="mt-5">
+            <PatentBadge variant="light" />
+          </div>
+        )}
+        {(primaryCta || secondaryCta) && (
+          <div class="mt-6 flex flex-wrap gap-4">
+            {primaryCta && (
+              <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>
+            )}
+            {secondaryCta && (
+              <a href={secondaryCta.href} class="btn btn-ghost">
+                {secondaryCta.label}
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  ) : variant === "side" ? (
+    <div class="container-page grid lg:grid-cols-2 gap-10 lg:gap-16 items-center py-20 sm:py-28 lg:py-32">
+      <div>
+        {eyebrow && <p class="kicker mb-4">{eyebrow}</p>}
+        <h1 class="h1-display">
+          <Fragment set:html={title} />
+        </h1>
+        {subtitle && <p class="lede mt-6 max-w-lg">{subtitle}</p>}
+        {withPatentBadge && (
+          <div class="mt-6">
+            <PatentBadge variant="light" />
+          </div>
+        )}
+        {(primaryCta || secondaryCta) && (
+          <div class="mt-8 flex flex-wrap gap-4">
+            {primaryCta && (
+              <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>
+            )}
+            {secondaryCta && (
+              <a href={secondaryCta.href} class="btn btn-ghost">
+                {secondaryCta.label}
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+      {videoSrc && (
+        <div class="relative aspect-video bg-brand-ink-deep rounded-sm overflow-hidden border border-brand-bone/10">
+          <video
+            class="absolute inset-0 w-full h-full object-cover"
+            style="filter: brightness(0.92) contrast(1.05) saturate(0.95);"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster={posterSrc}
+            aria-hidden="true"
+          >
+            <source src={videoSrc} type="video/mp4" />
+            <source src={videoSrc.replace(/\.mp4$/, '.mov')} type="video/quicktime" />
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-b from-brand-black/20 via-transparent to-brand-black/40 pointer-events-none"></div>
+        </div>
+      )}
+    </div>
+  ) : animate ? (
+    <div class="container-page max-w-4xl flex flex-col justify-between gap-12 min-h-[92vh] pt-10 pb-4 sm:pt-12 sm:pb-6">
+      {/* Top group — bigger fonts, settles top-left */}
+      <div class="hero-group hero-group--top">
+        {eyebrow && <p class="kicker mb-4">{eyebrow}</p>}
+        <h1 class="h1-display">
+          <Fragment set:html={title} />
+        </h1>
+      </div>
+      {/* Bottom group — smaller fonts, settles bottom-left. Narrow to clear the latch hardware in the video. */}
+      <div class="hero-group hero-group--bottom max-w-md">
+        {subtitle && <p class="lede">{subtitle}</p>}
+        {withPatentBadge && (
+          <div class="mt-6">
+            <PatentBadge variant="light" />
+          </div>
+        )}
+        {(primaryCta || secondaryCta) && (
+          <div class="mt-8 flex flex-wrap gap-4">
+            {primaryCta && (
+              <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>
+            )}
+            {secondaryCta && (
+              <a href={secondaryCta.href} class="btn btn-ghost">
+                {secondaryCta.label}
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  ) : (
+    <div class="container-page py-24 sm:py-32 md:py-40 max-w-4xl">
+      {eyebrow && <p class="kicker mb-4">{eyebrow}</p>}
+      <h1 class="h1-display">
+        <Fragment set:html={title} />
+      </h1>
+      {subtitle && <p class="lede mt-6 max-w-2xl">{subtitle}</p>}
+      {withPatentBadge && (
+        <div class="mt-6">
+          <PatentBadge variant="light" />
+        </div>
+      )}
+      {(primaryCta || secondaryCta) && (
+        <div class="mt-10 flex flex-wrap gap-4">
+          {primaryCta && (
+            <a href={primaryCta.href} class="btn btn-primary">{primaryCta.label}</a>
+          )}
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="btn btn-ghost">
+              {secondaryCta.label}
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  )}
+</section>
+
+{animate && (
+  <style>
+    /* Hero animation: bolt-sliding motion from right.
+       Top group enters first, bottom group enters with stagger. */
+    .hero--animate .hero-group {
+      opacity: 0;
+      transform: translateX(48px);
+      transition: opacity 900ms var(--ease-mechanical, cubic-bezier(0.2, 0.7, 0.2, 1)),
+                  transform 900ms var(--ease-mechanical, cubic-bezier(0.2, 0.7, 0.2, 1));
+    }
+    .hero--animate .hero-group--top    { transition-delay: 0ms; }
+    .hero--animate .hero-group--bottom { transition-delay: 180ms; }
+
+    .hero--animate.is-loaded .hero-group {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero--animate .hero-group {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+  <script is:inline>
+    (function () {
+      const hero = document.querySelector('.hero--animate');
+      if (!hero) return;
+      /* Next frame so initial CSS state is committed before is-loaded triggers transition */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { hero.classList.add('is-loaded'); });
+      });
+    })();
+  </script>
+)}

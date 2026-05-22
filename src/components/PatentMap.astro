@@ -1,0 +1,83 @@
+---
+/**
+ * PatentMap — clean manifest layout. Countries grouped by status, mono labels,
+ * registry/document feel rather than crowded chip grid. Drops emoji flags
+ * (they fail on Windows) in favor of mono 2-letter codes.
+ */
+interface Country {
+  code: string;
+  name: string;
+  note?: string;
+}
+
+const licensed: Country[] = [
+  { code: "US", name: "United States", note: "Licensed to National Hardware" },
+  { code: "IL", name: "Israel",        note: "Inventor's home market" },
+];
+
+const open: Country[] = [
+  { code: "CA", name: "Canada" },
+  { code: "AU", name: "Australia" },
+  { code: "GB", name: "United Kingdom" },
+  { code: "EU", name: "European Union" },
+  { code: "IN", name: "India" },
+];
+---
+<div class="rounded-lg border border-brand-bone/10 bg-brand-ink-deep p-6 sm:p-8">
+
+  {/* Header */}
+  <div class="flex items-start justify-between gap-4 flex-wrap pb-5 border-b border-brand-bone/10">
+    <div>
+      <p class="kicker">Patent coverage</p>
+      <h3 class="mt-2 text-xl font-semibold tracking-tight">Protected in 7 markets.</h3>
+    </div>
+    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-bone-muted">
+      US10934749B2
+    </p>
+  </div>
+
+  {/* LICENSED group */}
+  <div class="mt-6">
+    <div class="flex items-center gap-3">
+      <span class="inline-block w-2 h-2 rounded-full bg-brand-green" aria-hidden="true"></span>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-green">
+        Licensed &middot; {licensed.length}
+      </p>
+    </div>
+    <ul class="mt-3 divide-y divide-brand-bone/8">
+      {licensed.map((c) => (
+        <li class="grid grid-cols-[3rem_1fr] sm:grid-cols-[3rem_10rem_1fr] gap-x-4 items-baseline py-3">
+          <span class="font-mono text-sm font-semibold text-brand-bone tracking-[0.04em]">{c.code}</span>
+          <span class="text-sm font-medium text-brand-bone">{c.name}</span>
+          {c.note && (
+            <span class="col-span-2 sm:col-span-1 text-[11px] sm:text-xs text-brand-bone-muted sm:text-right font-mono uppercase tracking-[0.12em]">
+              {c.note}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {/* OPEN group */}
+  <div class="mt-6">
+    <div class="flex items-center gap-3">
+      <span class="inline-block w-2 h-2 rounded-full bg-brand-amber" aria-hidden="true"></span>
+      <p class="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-amber">
+        Open for licensing &middot; {open.length}
+      </p>
+    </div>
+    <ul class="mt-3 divide-y divide-brand-bone/8">
+      {open.map((c) => (
+        <li class="grid grid-cols-[3rem_1fr] sm:grid-cols-[3rem_10rem_1fr] gap-x-4 items-baseline py-3">
+          <span class="font-mono text-sm font-semibold text-brand-bone tracking-[0.04em]">{c.code}</span>
+          <span class="text-sm font-medium text-brand-bone">{c.name}</span>
+          <span class="col-span-2 sm:col-span-1 text-[11px] sm:text-xs text-brand-bone-faint sm:text-right font-mono uppercase tracking-[0.12em]">
+            Recruiting partners
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+</div>

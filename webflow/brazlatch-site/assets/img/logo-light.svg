@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 140" role="img" aria-label="braz innovation">
+  <title>braz innovation</title>
+  <defs>
+    <style>
+      .word { font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 96px; fill: #ffffff; letter-spacing: -2px; }
+      .sub  { font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif; font-weight: 400; font-size: 14px; fill: #ffffff; letter-spacing: 6px; }
+    </style>
+  </defs>
+  <text x="0"  y="90" class="word">br</text>
+  <circle cx="156" cy="60" r="44" fill="none" stroke="#7ED957" stroke-width="6"/>
+  <text x="118" y="90" class="word">a</text>
+  <text x="206" y="90" class="word">z</text>
+  <text x="6" y="122" class="sub">I N N O V A T I O N</text>
+</svg>

@@ -1,0 +1,152 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import PatentMap from "../components/PatentMap.astro";
+import ContactForm from "../components/ContactForm.astro";
+---
+<BaseLayout
+  title="Partner With Us — Licensing and Distribution | BrazLatch"
+  description="BrazLatch is open for business in six markets. Already proven in the US through National Hardware. Looking for licensees and distributors in Canada, Australia, UK, Europe, India, and China."
+>
+  <Hero
+    eyebrow="Partner with us"
+    title="BrazLatch is open for business in <span class='text-brand-green'>6 markets</span>."
+    subtitle="Already proven in the United States. Looking for licensees and distributors in Canada, Australia, UK, Europe, India, and China."
+    primaryCta={{ href: "#contact", label: "Apply now" }}
+    secondaryCta={{ href: "#manufacturing", label: "See the manufacturing advantage" }}
+    withPatentBadge={true}
+    variant="static"
+  />
+
+  <section class="section section-dark">
+    <div class="container-page grid gap-12 lg:grid-cols-[2fr_3fr] items-start">
+      <div>
+        <p class="kicker">US case study</p>
+        <h2 class="h2-section mt-3">What's already working in America.</h2>
+        <p class="lede mt-6">
+          National Hardware licensed BrazLatch and built distribution across the United States. Today
+          BrazLatch is sold through major retailers including National Hardware, Amazon, and Lowe's.
+          Manufacturing runs at scale out of China. Every package on a US shelf carries the
+          Braz Innovation logo &mdash; a partnership model that protects the inventor's brand while
+          empowering the licensee.
+        </p>
+        <p class="mt-6 text-xs text-brand-white/40 font-mono">
+          US launch: [CONFIRM: launch year] · Patent: US10934749B2
+        </p>
+      </div>
+      <PatentMap />
+    </div>
+  </section>
+
+  <section id="license" class="section section-cream">
+    <div class="container-page">
+      <header class="max-w-2xl">
+        <p class="kicker">Two partnership paths</p>
+        <h2 class="h2-section mt-3 text-brand-ink">Pick your route.</h2>
+      </header>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-brand-ink/15 bg-white p-8">
+          <p class="text-xs uppercase tracking-widest text-brand-green-deep font-semibold">Path A</p>
+          <h3 class="mt-2 text-2xl font-bold text-brand-ink">License BrazLatch</h3>
+          <p class="mt-2 text-sm text-brand-ink/60">Exclusive market rights — for manufacturers, hardware brands, agricultural suppliers.</p>
+          <ul class="mt-6 space-y-2 text-sm text-brand-ink/85">
+            <li>· Exclusive manufacturing and marketing rights in your country</li>
+            <li>· Patent protection (US10934749B2 + international counterparts)</li>
+            <li>· Co-branding rights — your label plus Braz Innovation</li>
+            <li>· Direct access to the inventor for product development</li>
+            <li>· Multiple application categories = multiple revenue streams</li>
+          </ul>
+          <a href="#contact" class="mt-8 inline-flex items-center gap-2 text-brand-green-deep font-semibold">
+            Apply for a license <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        <div id="distribute" class="rounded-2xl border border-brand-ink/15 bg-white p-8">
+          <p class="text-xs uppercase tracking-widest text-brand-green-deep font-semibold">Path B</p>
+          <h3 class="mt-2 text-2xl font-bold text-brand-ink">Become a Distributor</h3>
+          <p class="mt-2 text-sm text-brand-ink/60">Distribution rights — for distributors, retailers, agricultural cooperatives.</p>
+          <ul class="mt-6 space-y-2 text-sm text-brand-ink/85">
+            <li>· Distribution rights for your region (exclusivity negotiable)</li>
+            <li>· Marketing support and product training</li>
+            <li>· Direct supply line from the existing production facility</li>
+            <li>· No multi-million-dollar tooling investment to start</li>
+          </ul>
+          <a href="#contact" class="mt-8 inline-flex items-center gap-2 text-brand-green-deep font-semibold">
+            Apply to distribute <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="manufacturing" class="section section-dark relative overflow-hidden">
+    <div class="container-page max-w-4xl">
+      <p class="kicker">The manufacturing advantage</p>
+      <h2 class="h2-section mt-3">
+        You don't need to build manufacturing <span class="text-brand-green">from day one</span>.
+      </h2>
+      <p class="lede mt-6">
+        BrazLatch is already in production at scale through National Hardware's facility in China.
+        New partners can begin by purchasing finished product directly from this production line &mdash;
+        test your market, build your distribution network, scale your operation. When the business
+        justifies it, you can transition to local manufacturing.
+      </p>
+      <p class="lede mt-4">No multi-million-dollar tooling investment to start.</p>
+
+      <ol class="mt-12 grid gap-6 md:grid-cols-3">
+        <li class="rounded-2xl border border-white/10 bg-brand-black/60 p-6">
+          <p class="text-xs uppercase tracking-widest text-brand-green font-semibold">Step 1</p>
+          <h3 class="mt-2 text-lg font-bold">Purchase from existing line</h3>
+          <p class="mt-2 text-sm text-brand-white/70">Buy ready inventory at agreed wholesale.</p>
+        </li>
+        <li class="rounded-2xl border border-white/10 bg-brand-black/60 p-6">
+          <p class="text-xs uppercase tracking-widest text-brand-green font-semibold">Step 2</p>
+          <h3 class="mt-2 text-lg font-bold">Build your market</h3>
+          <p class="mt-2 text-sm text-brand-white/70">Distribute through your channels with full marketing support.</p>
+        </li>
+        <li class="rounded-2xl border border-white/10 bg-brand-black/60 p-6">
+          <p class="text-xs uppercase tracking-widest text-brand-green font-semibold">Step 3</p>
+          <h3 class="mt-2 text-lg font-bold">Scale to local manufacturing</h3>
+          <p class="mt-2 text-sm text-brand-white/70">At your pace, when the volume justifies it.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-dark border-t border-white/5">
+    <div class="container-page max-w-3xl">
+      <p class="kicker">Why now</p>
+      <h2 class="h2-section mt-3">Four reasons it's the right moment.</h2>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl border border-white/10 bg-brand-black/60 p-5">
+          <p class="font-bold">✓ Proven product</p>
+          <p class="text-sm text-brand-white/70 mt-1">US market traction since [CONFIRM: launch year].</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-brand-black/60 p-5">
+          <p class="font-bold">✓ Patent-protected in your country</p>
+          <p class="text-sm text-brand-white/70 mt-1">US10934749B2 and its international counterparts.</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-brand-black/60 p-5">
+          <p class="font-bold">✓ Multiple application categories</p>
+          <p class="text-sm text-brand-white/70 mt-1">Equestrian, livestock, trailers, backyards, logistic, farms.</p>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-brand-black/60 p-5">
+          <p class="font-bold">✓ Direct relationship with the inventor</p>
+          <p class="text-sm text-brand-white/70 mt-1">Not a distributor of a distributor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section section-dark border-t border-white/5">
+    <div class="container-page max-w-3xl">
+      <p class="kicker">Apply</p>
+      <h2 class="h2-section mt-3">Tell us about your market.</h2>
+      <p class="lede mt-4">Serious enquiries get a personal reply from Alik within five working days.</p>
+      <div class="mt-10">
+        <ContactForm defaultIntent="license" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

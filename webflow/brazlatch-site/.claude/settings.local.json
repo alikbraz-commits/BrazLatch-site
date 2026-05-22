@@ -1,0 +1,27 @@
+{
+  "env": {
+    "BRAZLATCH_SITE_URL": "https://brazlatch.com",
+    "BRAZLATCH_FORM_NAME": "distributor-inquiry"
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Bash(netlify *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git log *)",
+      "Bash(python -m http.server *)",
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)",
+      "Bash(dir /B \"C:\\\\Users\\\\alikb\\\\OneDrive\\\\Tiedostot\\\\2026\\\\rooftrainer\\\\pic\\\\webflow\\\\brazlatch-site\\\\assets\\\\img\" \"C:\\\\Users\\\\alikb\\\\OneDrive\\\\Tiedostot\\\\2026\\\\rooftrainer\\\\pic\\\\webflow\\\\brazlatch-site\\\\assets\\\\img\\\\icons\")",
+      "Bash(more)",
+      "Bash(python3 *)"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+# Node / build / OS
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Netlify
+.netlify/
+
+# Claude Code session state (keep config, drop transient state)
+.claude/inquiries/submissions.csv
+.claude/inquiries/submissions.json
+.claude/inquiries/drafts/
+.claude/deploy-log.md
+
+# Local environment
+.env
+.env.local

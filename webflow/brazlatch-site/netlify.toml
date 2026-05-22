@@ -1,0 +1,46 @@
+# Netlify build / deploy configuration for BrazLatch
+# Drop the contents of this folder into a new Netlify site (or `netlify deploy`)
+# and the form, redirects, and headers below will activate automatically.
+
+[build]
+  publish = "."
+
+# ---- Security & cache headers -----------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options          = "SAMEORIGIN"
+    X-Content-Type-Options   = "nosniff"
+    Referrer-Policy          = "strict-origin-when-cross-origin"
+    Permissions-Policy       = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security= "max-age=31536000; includeSubDomains; preload"
+
+# Long-cache static assets (immutable hashed paths preferred; safe defaults below)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+# HTML — short cache so updates ship fast
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ---- Redirects --------------------------------------------------------------
+# www -> apex (adjust if you prefer the opposite)
+[[redirects]]
+  from = "https://www.brazlatch.com/*"
+  to   = "https://brazlatch.com/:splat"
+  status = 301
+  force  = true

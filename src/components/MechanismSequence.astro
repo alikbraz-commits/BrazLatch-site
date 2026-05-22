@@ -1,0 +1,277 @@
+---
+import SchematicFrame from "./SchematicFrame.astro";
+
+/**
+ * 5-step technical sequence for /how-it-works.
+ * Alternating column rhythm, mono spec rows, green callouts on schematics.
+ * Step 5 breaks out into a wider finale with a looped reset gesture.
+ *
+ * Schematics are specimen-quality placeholders. Drop in SolidWorks renders by
+ * swapping the <svg> element in each step's <aside> for an <Image>.
+ */
+---
+
+<section class="section section-dark border-t border-white/5">
+  <div class="container-page">
+    <header class="max-w-2xl reveal">
+      <p class="kicker">The mechanism</p>
+      <h2 class="h2-section mt-3">Five steps, one sequence.</h2>
+      <p class="lede mt-6">
+        Each step is a discrete mechanical event. Complete the sequence with one motion and the gate opens. Interrupt the sequence at any point and the spring returns the pin to its trap.
+      </p>
+    </header>
+
+    <div class="mt-20 space-y-24 lg:space-y-28">
+
+      <!-- STEP 01 — SPRING BIAS -->
+      <article class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="reveal">
+          <div class="flex items-baseline gap-5">
+            <p class="font-mono text-6xl sm:text-7xl font-medium text-brand-green/40 tabular-nums leading-none">01</p>
+            <p class="kicker">Spring bias</p>
+          </div>
+          <p class="mt-6 text-brand-white/85 leading-relaxed max-w-prose text-[15px]">
+            A compression spring keeps the bolt seated in the locked position by default. The mechanism has only one resting state.
+          </p>
+          <dl class="mt-7 border-y border-brand-bone/10">
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Component</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">compression spring, stainless</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Resting force</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">4–6 N</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3">
+              <dt class="spec-label">Default state</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">bolt extended, pin trapped</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="reveal aspect-[4/3] bg-brand-ink-deep rounded-sm border border-brand-bone/10 relative overflow-hidden p-5 lg:p-7 flex items-center justify-center">
+          <SchematicFrame />
+          <svg viewBox="0 0 240 140" class="relative z-10 w-full h-auto text-brand-bone" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+            <!-- Housing -->
+            <rect x="15" y="40" width="170" height="60" />
+            <!-- Strike -->
+            <rect x="210" y="40" width="20" height="60" />
+            <!-- Bolt extended into strike -->
+            <rect x="160" y="55" width="55" height="30" />
+            <!-- Channel inside housing -->
+            <line x1="35" y1="70" x2="155" y2="70" stroke-dasharray="3 2" stroke-width="0.75" />
+            <!-- Spring (relaxed) -->
+            <polyline points="20,70 30,63 40,77 50,63 60,77 70,63 80,77 90,63 100,77 110,63 120,77 130,63 140,77 150,70" stroke-width="1" />
+            <!-- Pin (locked, trapped at right end of channel) -->
+            <circle cx="152" cy="70" r="3" fill="currentColor" stroke="none" />
+            <!-- Green spring-force callout -->
+            <g class="text-brand-green">
+              <line x1="55" y1="105" x2="155" y2="105" stroke="currentColor" stroke-width="1.25" />
+              <polyline points="151,101 157,105 151,109" fill="currentColor" stroke="none" />
+              <text x="60" y="120" font-family="JetBrains Mono, monospace" font-size="8" fill="currentColor">SPRING FORCE →</text>
+            </g>
+          </svg>
+        </aside>
+      </article>
+
+      <!-- STEP 02 — TRAPPED PIN -->
+      <article class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center md:[&>*:first-child]:order-2">
+        <div class="reveal">
+          <div class="flex items-baseline gap-5">
+            <p class="font-mono text-6xl sm:text-7xl font-medium text-brand-green/40 tabular-nums leading-none">02</p>
+            <p class="kicker">Trapped pin</p>
+          </div>
+          <p class="mt-6 text-brand-white/85 leading-relaxed max-w-prose text-[15px]">
+            The bolt's pin sits in a closed channel terminus. No lateral force on the bolt can retract it, no matter how long or how hard the animal tries.
+          </p>
+          <dl class="mt-7 border-y border-brand-bone/10">
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Geometry</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">closed channel terminus</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Retraction</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">blocked at rest</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3">
+              <dt class="spec-label">Pin clearance</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">0 mm lateral</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="reveal aspect-[4/3] bg-brand-ink-deep rounded-sm border border-brand-bone/10 relative overflow-hidden p-5 lg:p-7 flex items-center justify-center">
+          <SchematicFrame />
+          <svg viewBox="0 0 240 140" class="relative z-10 w-full h-auto text-brand-bone" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+            <rect x="15" y="40" width="170" height="60" />
+            <rect x="210" y="40" width="20" height="60" />
+            <rect x="160" y="55" width="55" height="30" />
+            <line x1="35" y1="70" x2="150" y2="70" stroke-dasharray="3 2" stroke-width="0.75" />
+            <polyline points="20,70 30,63 40,77 50,63 60,77 70,63 80,77 90,63 100,77 110,63 120,77 130,63 140,77 150,70" stroke-width="1" />
+
+            <!-- Trap detail at right end of channel -->
+            <line x1="150" y1="65" x2="150" y2="75" stroke-width="1.5" />
+
+            <circle cx="148" cy="70" r="3" fill="currentColor" stroke="none" />
+
+            <!-- Green magnify-circle callout -->
+            <g class="text-brand-green">
+              <circle cx="148" cy="70" r="14" stroke="currentColor" stroke-width="1.25" fill="none" />
+              <line x1="158" y1="80" x2="190" y2="110" stroke="currentColor" stroke-width="1" />
+              <text x="155" y="120" font-family="JetBrains Mono, monospace" font-size="8" fill="currentColor">TRAP DETAIL</text>
+            </g>
+          </svg>
+        </aside>
+      </article>
+
+      <!-- STEP 03 — LOAD -->
+      <article class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="reveal">
+          <div class="flex items-baseline gap-5">
+            <p class="font-mono text-6xl sm:text-7xl font-medium text-brand-green/40 tabular-nums leading-none">03</p>
+            <p class="kicker">Load</p>
+          </div>
+          <p class="mt-6 text-brand-white/85 leading-relaxed max-w-prose text-[15px]">
+            Push the bolt inward against the spring. The pin advances along the channel toward its release zone. Spring compresses, mechanism arms.
+          </p>
+          <dl class="mt-7 border-y border-brand-bone/10">
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">User input</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">inward push, one hand</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Spring travel</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">≈ 4 mm</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3">
+              <dt class="spec-label">Pin transit</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">trap → release zone</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="reveal aspect-[4/3] bg-brand-ink-deep rounded-sm border border-brand-bone/10 relative overflow-hidden p-5 lg:p-7 flex items-center justify-center">
+          <SchematicFrame />
+          <svg viewBox="0 0 240 140" class="relative z-10 w-full h-auto text-brand-bone" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+            <rect x="15" y="40" width="170" height="60" />
+            <rect x="210" y="40" width="20" height="60" />
+            <!-- Bolt retracted leftward -->
+            <rect x="130" y="55" width="55" height="30" />
+            <line x1="35" y1="70" x2="125" y2="70" stroke-dasharray="3 2" stroke-width="0.75" />
+            <!-- Spring compressed -->
+            <polyline points="20,70 25,63 30,77 35,63 40,77 45,63 50,77 55,63 60,77 65,63 70,77 75,63 80,77 85,63 90,77 95,63 100,77 105,63 110,77 115,63 120,70" stroke-width="1" />
+            <!-- Pin advancing along channel -->
+            <circle cx="85" cy="70" r="3" fill="currentColor" stroke="none" />
+
+            <!-- Green push-direction callout -->
+            <g class="text-brand-green">
+              <line x1="215" y1="70" x2="190" y2="70" stroke="currentColor" stroke-width="1.25" />
+              <polyline points="194,66 188,70 194,74" fill="currentColor" stroke="none" />
+              <text x="170" y="120" font-family="JetBrains Mono, monospace" font-size="8" fill="currentColor">← PUSH</text>
+            </g>
+          </svg>
+        </aside>
+      </article>
+
+      <!-- STEP 04 — RELEASE ZONE -->
+      <article class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center md:[&>*:first-child]:order-2">
+        <div class="reveal">
+          <div class="flex items-baseline gap-5">
+            <p class="font-mono text-6xl sm:text-7xl font-medium text-brand-green/40 tabular-nums leading-none">04</p>
+            <p class="kicker">Release zone</p>
+          </div>
+          <p class="mt-6 text-brand-white/85 leading-relaxed max-w-prose text-[15px]">
+            With the pin at the release zone, a short rotation of the bolt lifts the pin clear of the channel. The bolt is now free to slide.
+          </p>
+          <dl class="mt-7 border-y border-brand-bone/10">
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">User input</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">rotate, same hand</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+              <dt class="spec-label">Rotation</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">≈ 15°</dd>
+            </div>
+            <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3">
+              <dt class="spec-label">Pin status</dt>
+              <dd class="font-mono text-[13px] text-brand-bone">cleared, free to exit</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="reveal aspect-[4/3] bg-brand-ink-deep rounded-sm border border-brand-bone/10 relative overflow-hidden p-5 lg:p-7 flex items-center justify-center">
+          <SchematicFrame />
+          <svg viewBox="0 0 240 140" class="relative z-10 w-full h-auto text-brand-bone" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+            <rect x="15" y="40" width="170" height="60" />
+            <rect x="210" y="40" width="20" height="60" />
+            <rect x="130" y="55" width="55" height="30" />
+            <line x1="35" y1="70" x2="125" y2="70" stroke-dasharray="3 2" stroke-width="0.75" />
+            <!-- Release zone exit slot at left end of channel -->
+            <line x1="35" y1="55" x2="35" y2="70" stroke-width="1.25" />
+            <polyline points="20,70 25,63 30,77 35,63 40,77 45,63 50,77 55,63 60,77 65,63 70,77 75,63 80,77 85,63 90,77 95,63 100,77 105,63 110,77 115,63 120,70" stroke-width="1" />
+            <!-- Pin at release zone -->
+            <circle cx="35" cy="63" r="3" fill="currentColor" stroke="none" />
+
+            <!-- Green rotation arc callout -->
+            <g class="text-brand-green">
+              <path d="M 145 50 A 18 18 0 0 1 175 50" stroke="currentColor" stroke-width="1.25" fill="none" />
+              <polyline points="170,46 176,50 172,55" fill="currentColor" stroke="none" />
+              <text x="138" y="35" font-family="JetBrains Mono, monospace" font-size="8" fill="currentColor">ROTATE ≈ 15°</text>
+            </g>
+          </svg>
+        </aside>
+      </article>
+
+    </div>
+
+    <!-- STEP 05 — OPEN OR RESET (finale, full width, looped reset gesture) -->
+    <div class="mt-24 lg:mt-32 pt-16 lg:pt-20 border-t border-brand-bone/10">
+      <article class="reveal grid lg:grid-cols-[5fr_7fr] gap-10 lg:gap-14 items-center bg-brand-green/[0.05] ring-1 ring-inset ring-brand-green/20 rounded-lg p-7 lg:p-10">
+
+      <div>
+        <div class="flex items-baseline gap-5">
+          <p class="font-mono text-7xl sm:text-8xl font-medium text-brand-green tabular-nums leading-none">05</p>
+          <p class="kicker">Open or reset</p>
+        </div>
+        <p class="mt-6 text-brand-white leading-relaxed max-w-prose text-base">
+          Continue the motion and the bolt slides clear of the strike. Stop the motion at any point and the spring returns the pin to its trap. The mechanism has two outcomes only. Intent decides which one.
+        </p>
+        <dl class="mt-9 border-y border-brand-bone/10">
+          <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+            <dt class="spec-label text-brand-green">Open</dt>
+            <dd class="font-mono text-[13px] text-brand-bone">complete sequence, bolt retracts</dd>
+          </div>
+          <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3 border-b border-brand-bone/10">
+            <dt class="spec-label text-brand-green">Reset</dt>
+            <dd class="font-mono text-[13px] text-brand-bone">interrupt, pin returns to trap</dd>
+          </div>
+          <div class="grid grid-cols-[8rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 py-3">
+            <dt class="spec-label">Decision</dt>
+            <dd class="font-mono text-[13px] text-brand-bone">continuous intent vs. interrupted</dd>
+          </div>
+        </dl>
+      </div>
+
+      <aside class="aspect-[16/9] bg-brand-ink-deep rounded-sm border border-brand-bone/10 relative overflow-hidden">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          class="absolute inset-0 w-full h-full object-cover"
+          aria-label="BrazLatch triple-action mechanism, full sequence"
+        >
+          <source src="/videos/brazlatch-triple-action.mp4" type="video/mp4" />
+        </video>
+        <SchematicFrame />
+        {/* Placeholder label shown while video is loading or not yet replaced */}
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <p class="font-mono text-[11px] text-brand-bone/30 tracking-widest uppercase">Video — replace when ready</p>
+        </div>
+      </aside>
+
+      </article>
+    </div>
+  </div>
+</section>

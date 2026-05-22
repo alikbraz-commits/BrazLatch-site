@@ -1,0 +1,66 @@
+﻿---
+import { getEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import horse from "../assets/photos/horse-rider-placeholder.jpg";
+
+const page = await getEntry("pages", "about");
+---
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <Hero
+    eyebrow="About the inventor"
+    title="The inventor."
+    subtitle="Alik Alexander Braz — Mikhmoret, Israel."
+    variant="static"
+  />
+
+  <section class="section section-dark">
+    <div class="container-page grid gap-10 lg:grid-cols-[3fr_4fr] items-start">
+      <div class="rounded-2xl overflow-hidden border border-white/10">
+        <Image src={horse} alt="Alik Braz at the family ranch in Mikhmoret" width={960} height={1200} />
+        <p class="text-xs text-brand-white/40 px-4 py-3 border-t border-white/10">
+          [CONFIRM: provide horse+rider photograph]
+        </p>
+      </div>
+
+      <div class="space-y-6 text-lg text-brand-white/80 leading-relaxed max-w-prose">
+        <p>
+          Since I was two years old I remember myself on our ranch, running between the horses' legs,
+          jumping from horses to the tractor, climbing up to my tree house. Growing up on the ranch
+          made my love for horses inevitable &mdash; along with many other passions: building, mechanics,
+          problem-solving. It turned me into a mature young adult fast, doing big mature jobs. While
+          still relatively young, I became the person everyone came to when there was a sophisticated
+          task that needed a creative, simple solution.
+        </p>
+        <p>
+          As the years went by, it became clear: I had a real appreciation for
+          <em class="text-brand-green not-italic font-semibold">sophisticated simplicity</em>.
+          What I want to share with the world is exactly that &mdash; simple solutions to everyday
+          problems that make life easier in a sophisticated, smart way.
+        </p>
+        <p class="text-brand-white">BrazLatch is the first.</p>
+
+        <div class="pt-6 border-t border-white/10">
+          <p class="font-bold text-brand-white">Alik Alexander Braz</p>
+          <p class="text-sm text-brand-white/60 mt-1">4th-generation horse breeder · founder of Braz Innovation</p>
+          <p class="text-sm text-brand-white/60">Mikhmoret, Israel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cream">
+    <div class="container-page max-w-3xl">
+      <p class="kicker">Parent brand</p>
+      <h2 class="h2-section mt-3 text-brand-ink">Braz Innovation.</h2>
+      <p class="mt-6 text-brand-ink/75 text-lg leading-relaxed">
+        BrazLatch is the first product from <strong>Braz Innovation</strong>. More inventions are in development &mdash; all focused on the same principle: <strong>mechanical simplicity solving real-world problems</strong>. Sophisticated on the inside, simple to the hand.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/how-it-works" class="btn btn-primary">See how BrazLatch works</a>
+        <a href="/partner" class="btn btn-ghost text-brand-ink border-brand-ink/30 hover:bg-brand-ink/5">Partner with us <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

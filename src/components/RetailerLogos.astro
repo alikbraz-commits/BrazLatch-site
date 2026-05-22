@@ -1,0 +1,28 @@
+﻿---
+interface Retailer {
+  name: string;
+  href: string;
+}
+const retailers: Retailer[] = [
+  { name: "National Hardware", href: "https://www.nationalhardware.com/" },
+  { name: "Amazon", href: "https://www.amazon.com/" },
+  { name: "Lowe's", href: "https://www.lowes.com/" },
+];
+---
+<div class="rounded-2xl border border-white/10 bg-brand-black/60 p-8">
+  <p class="text-[11px] uppercase tracking-widest text-brand-white/50">Already on shelves at</p>
+  <ul class="mt-4 flex flex-wrap items-center gap-x-10 gap-y-3">
+    {retailers.map((r) => (
+      <li>
+        <a
+          href={r.href}
+          rel="noopener"
+          target="_blank"
+          class="text-lg font-semibold text-brand-white/90 hover:text-brand-green"
+        >
+          {r.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
