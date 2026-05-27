@@ -3,6 +3,7 @@ import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import MechanismCycle from "../components/MechanismCycle.astro";
 import MechanismSequence from "../components/MechanismSequence.astro";
 import ComparisonTable from "../components/ComparisonTable.astro";
 import PatentMap from "../components/PatentMap.astro";
@@ -47,6 +48,8 @@ const get  = makeGetter(c);
       </div>
     </div>
   </section>
+
+  <MechanismCycle />
 
   <MechanismSequence />
 
